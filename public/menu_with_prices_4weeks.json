@@ -1,0 +1,649 @@
+{
+    "prices": {
+        "veg": 120,
+        "nonveg": 135,
+        "extras": {
+            "Butter Milk": 10,
+            "Fruit Juice": 50,
+            "Lassi": 35,
+            "Boiled Eggs": 10
+        }
+    },
+    "week1": {
+        "monday": {
+            "lunch": {
+                "veg": [
+                    "Paneer masala",
+                    "Red chana",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Tikka masala",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "tuesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Aloo matar",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Butter Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Bhurji",
+                    "Channa masala",
+                    "Dal",
+                    "Puri",
+                    "Chapati",
+                    "Kheer",
+                    "Rice",
+                    "Papad"
+                ],
+                "nonveg": []
+            }
+        },
+        "wednesday": {
+            "lunch": {
+                "veg": [
+                    "Palak Paneer",
+                    "Aloo sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Kabab",
+                    "Chicken Gravy"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Tikka Kabab",
+                    "Soya Aloo sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": []
+            }
+        },
+        "thursday": {
+            "lunch": {
+                "veg": [
+                    "Paneer chilli",
+                    "Dahi Kadhi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Chilli"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Gobi Manchurian",
+                    "Matar Paneer masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati",
+                    "Sujihalwa"
+                ],
+                "nonveg": []
+            }
+        },
+        "friday": {
+            "lunch": {
+                "veg": [
+                    "Paneer bhurji",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Egg bhurji"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Black dal",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "saturday": {
+            "lunch": {
+                "veg": [
+                    "Channa masala",
+                    "Aloo sabzi",
+                    "Puri",
+                    "Chapati",
+                    "Rice",
+                    "Dal",
+                    "Papad",
+                    "Lime juice"
+                ],
+                "nonveg": []
+            },
+            "dinner": {
+                "veg": [
+                    "Aloo paratha",
+                    "Sattu paratha",
+                    "Chapathi",
+                    "Mix sabzi",
+                    "Dal",
+                    "Rice"
+                ],
+                "nonveg": []
+            }
+        },
+        "sunday": "Holiday"
+    },
+    "week2": {
+        "monday": {
+            "lunch": {
+                "veg": [
+                    "Paneer masala",
+                    "Red chana",
+                    "Dal",
+                    "Jeera rice",
+                    "Chapati",
+                    "Papad"
+                ],
+                "nonveg": [
+                    "Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Tikka masala",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "tuesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Tikka Kabab",
+                    "Veg gravy",
+                    "Lobia Aloo",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Kabab",
+                    "Chicken Gravy"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Bhurji",
+                    "Channa masala",
+                    "Dal",
+                    "Puri",
+                    "Chapati",
+                    "Kheer",
+                    "Rice",
+                    "Papad"
+                ],
+                "nonveg": []
+            }
+        },
+        "wednesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Kaju masala",
+                    "Aloo Palak",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Green Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Butter masala",
+                    "Soya Aloo Sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Butter Chicken masala"
+                ]
+            }
+        },
+        "thursday": {
+            "lunch": {
+                "veg": [
+                    "Paneer chilli",
+                    "Dahi Kadhi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Chilli"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Soya Manchurian",
+                    "Matar Paneer masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati",
+                    "Sujihalwa"
+                ],
+                "nonveg": []
+            }
+        },
+        "friday": {
+            "lunch": {
+                "veg": [
+                    "Paneer bhurji",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Egg bhurji"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Black dal",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "saturday": {
+            "lunch": {
+                "veg": [
+                    "Channa masala",
+                    "Aloo sabzi",
+                    "Puri",
+                    "Chapati",
+                    "Rice",
+                    "Dal",
+                    "Papad",
+                    "Lime juice"
+                ],
+                "nonveg": []
+            },
+            "dinner": {
+                "veg": [
+                    "Gobi Manchurian",
+                    "Chapathi",
+                    "Mix sabzi",
+                    "Dal",
+                    "Rice"
+                ],
+                "nonveg": []
+            }
+        },
+        "sunday": "Holiday"
+    },
+    "week3": {
+        "monday": {
+            "lunch": {
+                "veg": [
+                    "Paneer masala",
+                    "Red chana",
+                    "Dal",
+                    "Jeera rice",
+                    "Chapati",
+                    "Papad"
+                ],
+                "nonveg": [
+                    "Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Tikka masala",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "tuesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Tikka Kabab",
+                    "Veg gravy",
+                    "Lobia Aloo",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Kabab",
+                    "Chicken gravy"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Bhurji",
+                    "Channa masala",
+                    "Dal",
+                    "Puri",
+                    "Chapati",
+                    "Kheer",
+                    "Rice",
+                    "Papad"
+                ],
+                "nonveg": []
+            }
+        },
+        "wednesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer kaju masala",
+                    "Aloo Sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Butter Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Matar masala",
+                    "Soya Aloo Sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Green Chicken masala"
+                ]
+            }
+        },
+        "thursday": {
+            "lunch": {
+                "veg": [
+                    "Paneer chilli",
+                    "Dahi Kadhi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken chilli"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Butter masala",
+                    "Black dal",
+                    "Dal",
+                    "Rice",
+                    "Chapati",
+                    "Suji halwa"
+                ],
+                "nonveg": []
+            }
+        },
+        "friday": {
+            "lunch": {
+                "veg": [
+                    "Palak Paneer",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Egg bhurji"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Aloo Matar",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "saturday": {
+            "lunch": {
+                "veg": [
+                    "Channa masala",
+                    "Aloo Sabzi",
+                    "Puri/Chapati",
+                    "Rice",
+                    "Dal",
+                    "Papad",
+                    "Lime juice"
+                ],
+                "nonveg": []
+            },
+            "dinner": {
+                "veg": [
+                    "Aloo Paratha",
+                    "Sattu Paratha",
+                    "Chapathi",
+                    "Mix Sabzi",
+                    "Dal",
+                    "Rice"
+                ],
+                "nonveg": []
+            }
+        },
+        "sunday": "Holiday"
+    },
+    "week4": {
+        "monday": {
+            "lunch": {
+                "veg": [
+                    "Paneer masala",
+                    "Red chana",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Tikka masala",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "tuesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Biriyani",
+                    "Aloo matar",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Biriyani"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Bhurji",
+                    "Channa masala",
+                    "Dal",
+                    "Puri",
+                    "Chapati",
+                    "Kheer",
+                    "Rice",
+                    "Papad"
+                ],
+                "nonveg": []
+            }
+        },
+        "wednesday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Dry masala",
+                    "Aloo Sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Butter Chicken masala"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Butter masala",
+                    "Aloo Lobia Sabzi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": []
+            }
+        },
+        "thursday": {
+            "lunch": {
+                "veg": [
+                    "Paneer chilli",
+                    "Dahi Kadhi",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken chilli"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Chole Masala",
+                    "Aloo Bhuna Masala",
+                    "Plain Paratha",
+                    "Dal",
+                    "Rice",
+                    "Suji halwa"
+                ],
+                "nonveg": []
+            }
+        },
+        "friday": {
+            "lunch": {
+                "veg": [
+                    "Paneer Kaju masala",
+                    "Rajma masala",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Egg bhurji"
+                ]
+            },
+            "dinner": {
+                "veg": [
+                    "Paneer Kofta",
+                    "Black dal",
+                    "Dal",
+                    "Rice",
+                    "Chapati"
+                ],
+                "nonveg": [
+                    "Chicken Gravy"
+                ]
+            }
+        },
+        "saturday": {
+            "lunch": {
+                "veg": [
+                    "Channa masala",
+                    "Aloo Sabzi",
+                    "Puri/Chapati",
+                    "Rice",
+                    "Dal",
+                    "Papad",
+                    "Lime juice"
+                ],
+                "nonveg": []
+            },
+            "dinner": {
+                "veg": [
+                    "Aloo Paratha",
+                    "Sattu Paratha",
+                    "Chapathi",
+                    "Mix Sabzi",
+                    "Dal",
+                    "Rice"
+                ],
+                "nonveg": []
+            }
+        },
+        "sunday": "Holiday"
+    }
+}
