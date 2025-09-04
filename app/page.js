@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // Set WEEK_OVERRIDE to 1..4 or null to auto-rotate.
 const WEEK_OVERRIDE = 3;
 // Set DAY_OVERRIDE to "monday".."sunday" or null to use today's IST day.
-const DAY_OVERRIDE = "thursday";
+const DAY_OVERRIDE = "friday";
 
 // Meal windows (IST)
 const LUNCH_WINDOW = { startMin: 11 * 60 + 45, endMin: 14 * 60 + 15 };
