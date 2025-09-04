@@ -1,252 +1,120 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-// Force week while setting up. Set to null to auto-rotate later.
-const WEEK_OVERRIDE = 3; // 1..4 or null
-const SOURCES = [
-  "/menu_with_prices_4weeks_full.json", // new 4-week file
-  "/fortnightly_menu.json",              // fallback 2-week file
-];
-
-// Meal windows (IST)
-const LUNCH_WINDOW = { startMin: 11 * 60 + 45, endMin: 14 * 60 + 15 }; // 11:45–14:15
-const DINNER_WINDOW = { startMin: 19 * 60, endMin: 21 * 60 + 30 };     // 19:00–21:30
-
-export default function Home() {
-  const [menu, setMenu] = useState(null);
-  const [prices, setPrices] = useState(null);
-  const [currentMeal, setCurrentMeal] = useState(null);
-  const [todayDate, setTodayDate] = useState("");
-  const [debug, setDebug] = useState({ source: "", weekKey: "", day: "" });
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let isMounted = true;
-
-    (async () => {
-      try {
-        setError("");
-        // Pick day/date
-        const now = new Date();
-        const dayNames = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-        const day = dayNames[now.getDay()];
-        const dateHuman = now.toLocaleDateString("en-IN", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        if (isMounted) setTodayDate(dateHuman);
-
-        // Try sources in order
-        let data = null;
-        let chosenSource = "";
-        for (const url of SOURCES) {
-          try {
-            const res = await fetch(url, { cache: "no-store" });
-            if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-            data = await res.json();
-            chosenSource = url;
-            break;
-          } catch (e) {
-            // Try next source
-          }
-        }
-
-        if (!data) {
-          throw new Error(
-            `Couldn’t load any menu file. Make sure one of these exists in /public:\n` +
-            `- menu_with_prices_4weeks_full.json\n- fortnightly_menu.json`
-          );
-        }
-
-        // Detect format
-        const hasFour = !!(data.week1 || data.week2 || data.week3 || data.week4);
-        const hasTwo  = !!(data.weekA || data.weekB);
-
-        // Figure week key
-        let weekKey = "";
-        if (hasFour) {
-          if (WEEK_OVERRIDE) {
-            weekKey = `week${WEEK_OVERRIDE}`;
-          } else {
-            const startDate = new Date(Date.UTC(2025, 0, 1));
-            const weekNumber = Math.floor((now - startDate) / (7 * 24 * 60 * 60 * 1000));
-            const weekIdx = (weekNumber % 4) + 1; // 1..4
-            weekKey = `week${weekIdx}`;
-          }
-          // Prices from file
-          if (isMounted) setPrices(data.prices ?? null);
-        } else if (hasTwo) {
-          if (WEEK_OVERRIDE) {
-            weekKey = (WEEK_OVERRIDE % 2 === 1) ? "weekA" : "weekB";
-          } else {
-            const startDate = new Date(Date.UTC(2025, 0, 1));
-            const weekNumber = Math.floor((now - startDate) / (7 * 24 * 60 * 60 * 1000));
-            weekKey = (weekNumber % 2 === 0) ? "weekA" : "weekB";
-          }
-          // Provide default prices/extras (since old file has none)
-          if (isMounted) setPrices({
-            veg: 120,
-            nonveg: 135,
-            extras: {
-              "Butter Milk": 10,
-              "Fruit Juice": 50,
-              "Lassi": 35,
-              "Boiled Eggs": 10,
-            },
-          });
-        } else {
-          throw new Error("Menu format not recognized. Expect week1..week4 or weekA/weekB.");
-        }
-
-        const todays = data[weekKey]?.[day];
-
-        if (isMounted) {
-          setDebug({ source: chosenSource, weekKey, day });
-        }
-
-        if (!todays) {
-          if (isMounted) setMenu("Holiday");
-        } else {
-          if (isMounted) setMenu(todays);
-        }
-
-        // Current meal (IST)
-        const nowUTC = new Date();
-        const nowIST = new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
-        const mins = nowIST.getUTCHours() * 60 + nowIST.getUTCMinutes();
-        if (mins >= LUNCH_WINDOW.startMin && mins <= LUNCH_WINDOW.endMin) {
-          if (isMounted) setCurrentMeal("lunch");
-        } else if (mins >= DINNER_WINDOW.startMin && mins <= DINNER_WINDOW.endMin) {
-          if (isMounted) setCurrentMeal("dinner");
-        } else {
-          if (isMounted) setCurrentMeal(null);
-        }
-      } catch (e) {
-        if (isMounted) setError(String(e.message || e));
-      }
-    })();
-
-    return () => { isMounted = false; };
-  }, []);
-
-  // Error UI (shows what went wrong)
-  if (error) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-950 text-white p-6">
-        <div className="bg-red-900/40 border border-red-700/50 p-6 rounded-xl max-w-xl w-full">
-          <h1 className="text-2xl font-bold mb-2">Sindhi Mess Menu</h1>
-          <p className="mb-4 whitespace-pre-wrap">{error}</p>
-          <ol className="text-sm text-gray-300 list-decimal ml-5 space-y-1">
-            <li>Ensure the JSON file is in <code>/public</code> of the repo.</li>
-            <li>Open <code>/menu_with_prices_4weeks_full.json</code> directly in the browser to confirm it loads.</li>
-            <li>Validate it’s valid JSON (no comments/trailing commas).</li>
-            <li>Commit & redeploy.</li>
-          </ol>
-        </div>
-      </main>
-    );
+{
+  "prices": {
+    "veg": 120,
+    "nonveg": 135,
+    "extras": {
+      "Butter Milk": 10,
+      "Fruit Juice": 50,
+      "Lassi": 35,
+      "Boiled Eggs": 10
+    }
+  },
+  "week1": {
+    "monday": {
+      "lunch": { "veg": ["Paneer masala","Red chana","Dal","Rice","Chapati"], "nonveg": ["Chicken masala"] },
+      "dinner": { "veg": ["Paneer Tikka masala","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "tuesday": {
+      "lunch": { "veg": ["Paneer Kofta","Aloo matar","Dal","Rice","Chapati"], "nonveg": ["Butter Chicken masala"] },
+      "dinner": { "veg": ["Paneer Bhurji","Channa masala","Dal","Puri","Chapati","Kheer","Rice","Papad"], "nonveg": [] }
+    },
+    "wednesday": {
+      "lunch": { "veg": ["Palak Paneer","Aloo sabzi","Dal","Rice","Chapati"], "nonveg": ["Chicken Kabab","Chicken Gravy"] },
+      "dinner": { "veg": ["Paneer Tikka Kabab","Soya Aloo sabzi","Dal","Rice","Chapati"], "nonveg": [] }
+    },
+    "thursday": {
+      "lunch": { "veg": ["Paneer chilli","Dahi Kadhi","Dal","Rice","Chapati"], "nonveg": ["Chicken Chilli"] },
+      "dinner": { "veg": ["Gobi Manchurian","Matar Paneer masala","Dal","Rice","Chapati","Sujihalwa"], "nonveg": [] }
+    },
+    "friday": {
+      "lunch": { "veg": ["Paneer bhurji","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Egg bhurji"] },
+      "dinner": { "veg": ["Paneer Kofta","Black dal","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "saturday": {
+      "lunch": { "veg": ["Channa masala","Aloo sabzi","Puri","Chapati","Rice","Dal","Papad","Lime juice"], "nonveg": [] },
+      "dinner": { "veg": ["Aloo paratha","Sattu paratha","Chapathi","Mix sabzi","Dal","Rice"], "nonveg": [] }
+    },
+    "sunday": "Holiday"
+  },
+  "week2": {
+    "monday": {
+      "lunch": { "veg": ["Paneer masala","Red chana","Dal","Jeera rice","Chapati","Papad"], "nonveg": ["Chicken masala"] },
+      "dinner": { "veg": ["Paneer Tikka masala","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "tuesday": {
+      "lunch": { "veg": ["Paneer Tikka Kabab","Veg gravy","Lobia Aloo","Dal","Rice","Chapati"], "nonveg": ["Chicken Kabab","Chicken Gravy"] },
+      "dinner": { "veg": ["Paneer Bhurji","Channa masala","Dal","Puri","Chapati","Kheer","Rice","Papad"], "nonveg": [] }
+    },
+    "wednesday": {
+      "lunch": { "veg": ["Paneer Kaju masala","Aloo Palak","Dal","Rice","Chapati"], "nonveg": ["Green Chicken masala"] },
+      "dinner": { "veg": ["Paneer Butter masala","Soya Aloo Sabzi","Dal","Rice","Chapati"], "nonveg": ["Butter Chicken masala"] }
+    },
+    "thursday": {
+      "lunch": { "veg": ["Paneer chilli","Dahi Kadhi","Dal","Rice","Chapati"], "nonveg": ["Chicken Chilli"] },
+      "dinner": { "veg": ["Soya Manchurian","Matar Paneer masala","Dal","Rice","Chapati","Sujihalwa"], "nonveg": [] }
+    },
+    "friday": {
+      "lunch": { "veg": ["Paneer bhurji","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Egg bhurji"] },
+      "dinner": { "veg": ["Paneer Kofta","Black dal","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "saturday": {
+      "lunch": { "veg": ["Channa masala","Aloo sabzi","Puri","Chapati","Rice","Dal","Papad","Lime juice"], "nonveg": [] },
+      "dinner": { "veg": ["Gobi Manchurian","Chapathi","Mix sabzi","Dal","Rice"], "nonveg": [] }
+    },
+    "sunday": "Holiday"
+  },
+  "week3": {
+    "monday": {
+      "lunch": { "veg": ["Paneer masala","Red chana","Dal","Jeera rice","Chapati","Papad"], "nonveg": ["Chicken masala"] },
+      "dinner": { "veg": ["Paneer Tikka masala","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "tuesday": {
+      "lunch": { "veg": ["Paneer Tikka Kabab","Veg gravy","Lobia Aloo","Dal","Rice","Chapati"], "nonveg": ["Chicken Kabab","Chicken gravy"] },
+      "dinner": { "veg": ["Paneer Bhurji","Channa masala","Dal","Puri","Chapati","Kheer","Rice","Papad"], "nonveg": [] }
+    },
+    "wednesday": {
+      "lunch": { "veg": ["Paneer kaju masala","Aloo Sabzi","Dal","Rice","Chapati"], "nonveg": ["Butter Chicken masala"] },
+      "dinner": { "veg": ["Paneer Matar masala","Soya Aloo Sabzi","Dal","Rice","Chapati"], "nonveg": ["Green Chicken masala"] }
+    },
+    "thursday": {
+      "lunch": { "veg": ["Paneer chilli","Dahi Kadhi","Dal","Rice","Chapati"], "nonveg": ["Chicken chilli"] },
+      "dinner": { "veg": ["Paneer Butter masala","Black dal","Dal","Rice","Chapati","Suji halwa"], "nonveg": [] }
+    },
+    "friday": {
+      "lunch": { "veg": ["Palak Paneer","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Egg bhurji"] },
+      "dinner": { "veg": ["Paneer Kofta","Aloo Matar","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "saturday": {
+      "lunch": { "veg": ["Channa masala","Aloo Sabzi","Puri/Chapati","Rice","Dal","Papad","Lime juice"], "nonveg": [] },
+      "dinner": { "veg": ["Aloo Paratha","Sattu Paratha","Chapathi","Mix Sabzi","Dal","Rice"], "nonveg": [] }
+    },
+    "sunday": "Holiday"
+  },
+  "week4": {
+    "monday": {
+      "lunch": { "veg": ["Paneer masala","Red chana","Dal","Rice","Chapati"], "nonveg": ["Chicken masala"] },
+      "dinner": { "veg": ["Paneer Tikka masala","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "tuesday": {
+      "lunch": { "veg": ["Paneer Biriyani","Aloo matar","Dal","Rice","Chapati"], "nonveg": ["Chicken Biriyani"] },
+      "dinner": { "veg": ["Paneer Bhurji","Channa masala","Dal","Puri","Chapati","Kheer","Rice","Papad"], "nonveg": [] }
+    },
+    "wednesday": {
+      "lunch": { "veg": ["Paneer Kofta","Dry masala","Aloo Sabzi","Dal","Rice","Chapati"], "nonveg": ["Butter Chicken masala"] },
+      "dinner": { "veg": ["Paneer Butter masala","Aloo Lobia Sabzi","Dal","Rice","Chapati"], "nonveg": [] }
+    },
+    "thursday": {
+      "lunch": { "veg": ["Paneer chilli","Dahi Kadhi","Dal","Rice","Chapati"], "nonveg": ["Chicken chilli"] },
+      "dinner": { "veg": ["Chole Masala","Aloo Bhuna Masala","Plain Paratha","Dal","Rice","Suji halwa"], "nonveg": [] }
+    },
+    "friday": {
+      "lunch": { "veg": ["Paneer Kaju masala","Rajma masala","Dal","Rice","Chapati"], "nonveg": ["Egg bhurji"] },
+      "dinner": { "veg": ["Paneer Kofta","Black dal","Dal","Rice","Chapati"], "nonveg": ["Chicken Gravy"] }
+    },
+    "saturday": {
+      "lunch": { "veg": ["Channa masala","Aloo Sabzi","Puri/Chapati","Rice","Dal","Papad","Lime juice"], "nonveg": [] },
+      "dinner": { "veg": ["Aloo Paratha","Sattu Paratha","Chapathi","Mix Sabzi","Dal","Rice"], "nonveg": [] }
+    },
+    "sunday": "Holiday"
   }
-
-  if (!menu) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-950 text-white">Loading…</main>
-    );
-  }
-
-  if (menu === "Holiday") {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-950 text-white">
-        <div className="bg-red-900/40 p-6 rounded-lg shadow text-center">
-          <h1 className="text-3xl font-bold mb-2">Sindhi Mess Menu</h1>
-          <p className="text-lg">Mess Closed</p>
-        </div>
-      </main>
-    );
-  }
-
-  return (
-    <main className="min-h-screen bg-gray-950 text-white font-sans">
-      {/* Header */}
-      <header className="w-full py-6 text-center border-b border-gray-800">
-        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-          Sindhi Mess Menu
-        </h1>
-        <p className="text-sm text-gray-400 mt-1">{todayDate}</p>
-        {/* debug line (comment out later) */}
-        <p className="text-xs text-gray-500 mt-1">
-          source: {debug.source || "?"} · week: {debug.weekKey || "?"} · day: {debug.day || "?"}
-        </p>
-      </header>
-
-      {/* Meals */}
-      <div className="max-w-2xl mx-auto p-6 space-y-6">
-        {Object.entries(menu).map(([meal, items]) => (
-          <div
-            key={meal}
-            className={`relative rounded-2xl p-1 transition-transform hover:scale-[1.01] 
-              ${meal === currentMeal ? "bg-gradient-to-r from-green-400 via-emerald-500 to-green-600" : "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"}`}
-          >
-            <div className="rounded-xl p-6 bg-gray-900">
-              <h2 className="text-xl font-semibold capitalize mb-4 flex justify-between items-center">
-                <span>🍽️ {meal}</span>
-                {meal === "lunch" && <span className="text-xs text-gray-400">11:45 – 14:15 IST</span>}
-                {meal === "dinner" && <span className="text-xs text-gray-400">19:00 – 21:30 IST</span>}
-              </h2>
-
-              {items.veg?.length > 0 && (
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-green-400 font-semibold">Veg</span>
-                    {prices?.veg != null && <span className="text-xs text-gray-400">₹{prices.veg}</span>}
-                  </div>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {items.veg.map((dish, idx) => (
-                      <li key={idx} className="bg-gray-800 px-3 py-2 rounded-lg shadow-sm">{dish}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {items.nonveg?.length > 0 && (
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-red-400 font-semibold">Non-Veg</span>
-                    {prices?.nonveg != null && <span className="text-xs text-gray-400">₹{prices.nonveg}</span>}
-                  </div>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {items.nonveg.map((dish, idx) => (
-                      <li key={idx} className="bg-gray-800 px-3 py-2 rounded-lg shadow-sm">{dish}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Extras after each meal */}
-              {prices?.extras && (
-                <div className="mt-4">
-                  <span className="text-yellow-400 font-semibold mb-2 block">✨ Extras</span>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {Object.entries(prices.extras).map(([extra, price]) => (
-                      <li key={extra} className="bg-gray-800 px-3 py-2 rounded-lg shadow-sm flex justify-between">
-                        <span>{extra}</span>
-                        <span className="text-gray-400">₹{price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Footer */}
-      <footer className="text-gray-600 text-xs text-center py-6">
-        Sindhi Mess · Designed with ❤️
-      </footer>
-    </main>
-  );
 }
