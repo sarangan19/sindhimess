@@ -170,9 +170,9 @@ export default function Home() {
         </h1>
         <p className="text-sm text-gray-400 mt-1">{todayDate}</p>
         {/* Debug: remove later */}
-        </*p className="text-xs text-gray-500 mt-1">
+        /*<p className="text-xs text-gray-500 mt-1">
           source: {debug.source || "?"} · week: {debug.weekKey || "?"} · day: {debug.day || "?"}
-        </p*/>
+        </p>*/
       </header>
 
       {/* Meals */}
