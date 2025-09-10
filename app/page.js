@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // --- QUICK OVERRIDES ---
 // Set WEEK_OVERRIDE to 1..4 or null to auto-rotate.
-const WEEK_OVERRIDE = 3;
+const WEEK_OVERRIDE = 4;
 // Set DAY_OVERRIDE to "monday".."sunday" or null to use today's IST day.
 const DAY_OVERRIDE = null;
 
